@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trượng Đức Tuấn | Toán Học & Văn Hóa Chăm Pa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e8e8e8;
+    --gray-400: #999;
+    --gray-600: #555;
+    --accent: #c8a96e;
+    --accent-dark: #9e7f4a;
+    --serif: 'Playfair Display', Georgia, serif;
+    --body: 'Source Serif 4', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER / NAV ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,250,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  nav {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .logo {
+    font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.02em; color: var(--black); text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray-600); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--black); transition: 0.3s; }
+
+  /* ── BANNER / HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    padding: 120px 2rem 80px;
+    position: relative; overflow: hidden;
+    background: var(--white);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(var(--black) 1px, transparent 1px),
+      linear-gradient(90deg, var(--black) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-inner {
+    max-width: 1000px; text-align: center; position: relative;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: var(--serif); font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900; line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-desc {
+    font-size: 1.15rem; color: var(--gray-600); max-width: 580px; margin: 0 auto 3rem;
+    line-height: 1.8;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    padding: 1rem 2.5rem; background: var(--black); color: var(--white);
+    text-decoration: none; font-family: var(--mono); font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+  .hero-cta svg { width: 14px; height: 14px; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 2rem; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--gray-600); font-size: 1.05rem; max-width: 520px; }
+  .divider { width: 60px; height: 2px; background: var(--accent); margin: 2rem 0; }
+
+  /* ── CATEGORIES ── */
+  #categories { background: var(--gray-100); }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--gray-200); margin-top: 4rem; }
+  .cat-card {
+    background: var(--white); padding: 2.5rem 2rem; cursor: pointer;
+    transition: background 0.25s; text-decoration: none; color: inherit;
+    display: block;
+  }
+  .cat-card:hover { background: var(--black); color: var(--white); }
+  .cat-card:hover .cat-num { color: var(--accent); }
+  .cat-num { font-family: var(--mono); font-size: 0.7rem; color: var(--gray-400); margin-bottom: 1rem; }
+  .cat-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
+
+  /* ── ARTICLES GRID ── */
+  #articles { background: var(--white); }
+  .articles-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem; }
+  .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.5rem 1rem; border: 1px solid var(--gray-200);
+    background: none; cursor: pointer; transition: 0.2s; color: var(--gray-600);
+  }
+  .filter-btn.active, .filter-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+  .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2px; background: var(--gray-200); }
+  .article-card {
+    background: var(--white); padding: 2.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .article-card:hover { background: var(--gray-100); }
+  .article-tag {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .article-card h3 {
+    font-family: var(--serif); font-size: 1.3rem; font-weight: 700; line-height: 1.35;
+    color: var(--black);
+  }
+  .article-card p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.7; flex: 1; }
+  .article-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--gray-400); padding-top: 1rem; border-top: 1px solid var(--gray-200); }
+  .read-more {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--black); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem; margin-top: auto;
+  }
+  .read-more:hover { color: var(--accent); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,10,10,0.85); backdrop-filter: blur(6px);
+    overflow-y: auto; padding: 2rem;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal-overlay.open { display: flex; justify-content: center; align-items: flex-start; }
+  .modal {
+    background: var(--white); max-width: 780px; width: 100%;
+    margin: auto; padding: 4rem; position: relative;
+    animation: slideUp 0.35s ease;
+  }
+  .modal-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; cursor: pointer;
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+    color: var(--gray-600); text-transform: uppercase;
+  }
+  .modal-close:hover { color: var(--black); }
+  .modal-tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .modal h2 { font-family: var(--serif); font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 1.5rem; }
+  .modal-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--gray-400); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gray-200); }
+  .modal-body { font-size: 1.05rem; line-height: 1.9; color: var(--black); }
+  .modal-body p { margin-bottom: 1.5rem; }
+  .modal-body h4 { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--black); color: var(--white); }
+  #about .section-label { color: var(--accent); }
+  #about .section-title { color: var(--white); }
+  #about .section-sub { color: rgba(255,255,255,0.5); }
+  #about .divider { background: var(--accent); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 5rem; align-items: start; }
+  .about-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .info-row { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.5rem; }
+  .info-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .info-value { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .info-value a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+  .info-value a:hover { color: var(--accent); }
+  .about-bio h3 { font-family: var(--serif); font-size: 2rem; font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem; }
+  .about-bio p { color: rgba(255,255,255,0.6); line-height: 1.9; margin-bottom: 1rem; }
+  .social-links { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+  .social-btn {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
+    text-decoration: none; transition: 0.25s;
+  }
+  .social-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray-100); padding: 3rem 2rem;
+    border-top: 1px solid var(--gray-200);
+    text-align: center;
+  }
+  footer p { font-family: var(--mono); font-size: 0.7rem; color: var(--gray-400); letter-spacing: 0.08em; }
+  footer strong { color: var(--black); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: absolute;
+      top: 64px; left: 0; right: 0; background: var(--white);
+      padding: 1.5rem 2rem; border-bottom: 1px solid var(--gray-200);
+    }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .modal { padding: 2rem 1.5rem; }
+    .modal h2 { font-size: 1.6rem; }
+    .articles-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="#hero" class="logo">T.Đ.<span>Tuấn</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#categories">Chủ Đề</a></li>
+      <li><a href="#articles">Bài Viết</a></li>
+      <li><a href="#about">Về Tôi</a></li>
+      <li><a href="mailto:truongductuan260806@gmail.com">Liên Hệ</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO / BANNER -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Khoa học · Văn hóa · Tri thức</div>
+    <h1>Toán Học &<br><em>Văn Hóa</em><br>Chăm Pa</h1>
+    <p class="hero-desc">Khám phá vẻ đẹp của toán học ứng dụng trong đời sống và chiều sâu văn hóa lịch sử dân tộc Chăm Pa — một hành trình tri thức đặc sắc.</p>
+    <a href="#articles" class="hero-cta">
+      Khám Phá Bài Viết
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Danh Mục</div>
+      <h2 class="section-title">Các Chủ Đề Chính</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Nội dung được phân chia theo năm lĩnh vực nghiên cứu chuyên sâu.</p>
+    </div>
+    <div class="cat-grid reveal">
+      <a class="cat-card" href="#articles" onclick="filterArticles('toan')">
+        <div class="cat-num">01</div>
+        <h3>Ứng Dụng Toán Học Trong Đời Sống</h3>
+      </a>
+      <a class="cat-card" href="#articles" onclick="filterArticles('champa')">
+        <div class="cat-num">02</div>
+        <h3>Lịch Sử Văn Hóa Chăm Pa</h3>
+      </a>
+      <a class="cat-card" href="#articles" onclick="filterArticles('daiso')">
+        <div class="cat-num">03</div>
+        <h3>Đại Số & Giải Tích Trong Cuộc Sống</h3>
+      </a>
+      <a class="cat-card" href="#articles" onclick="filterArticles('tichphan')">
+        <div class="cat-num">04</div>
+        <h3>Tích Phân & Ứng Dụng Thực Tế</h3>
+      </a>
+      <a class="cat-card" href="#articles" onclick="filterArticles('lehoi')">
+        <div class="cat-num">05</div>
+        <h3>Lễ Hội Truyền Thống Chăm Pa</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section id="articles">
+  <div class="section-inner">
+    <div class="articles-header reveal">
+      <div>
+        <div class="section-label">Bài Viết</div>
+        <h2 class="section-title">Kho Tri Thức</h2>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterArticles('all',this)">Tất Cả</button>
+        <button class="filter-btn" onclick="filterArticles('toan',this)">Toán Học</button>
+        <button class="filter-btn" onclick="filterArticles('champa',this)">Chăm Pa</button>
+        <button class="filter-btn" onclick="filterArticles('daiso',this)">Đại Số</button>
+        <button class="filter-btn" onclick="filterArticles('tichphan',this)">Tích Phân</button>
+        <button class="filter-btn" onclick="filterArticles('lehoi',this)">Lễ Hội</button>
+      </div>
+    </div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Về Tác Giả</div>
+      <h2 class="section-title">Thông Tin Cá Nhân</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Sinh viên ngành Sư Phạm Toán, Trường Đại Học Đà Lạt.</p>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-info">
+        <div class="info-row"><div class="info-label">Họ và Tên</div><div class="info-value">Trượng Đức Tuấn</div></div>
+        <div class="info-row"><div class="info-label">Ngày Sinh</div><div class="info-value">26/08/2006</div></div>
+        <div class="info-row"><div class="info-label">Ngành Học</div><div class="info-value">Sư Phạm Toán</div></div>
+        <div class="info-row"><div class="info-label">Trường</div><div class="info-value">Đại Học Đà Lạt</div></div>
+        <div class="info-row"><div class="info-label">Điện Thoại / Zalo</div><div class="info-value"><a href="tel:0397336318">0397336318</a></div></div>
+        <div class="info-row"><div class="info-label">Email</div><div class="info-value"><a href="mailto:truongductuan260806@gmail.com">truongductuan260806@gmail.com</a></div></div>
+        <div class="info-row"><div class="info-label">Facebook</div><div class="info-value"><a href="https://www.facebook.com/truong.ductuan" target="_blank">Trượng Đức Tuấn</a></div></div>
+        <div class="social-links">
+          <a href="mailto:truongductuan260806@gmail.com" class="social-btn">Gmail</a>
+          <a href="https://www.facebook.com/truong.ductuan" target="_blank" class="social-btn">Facebook</a>
+          <a href="tel:0397336318" class="social-btn">Zalo</a>
+        </div>
+      </div>
+      <div class="about-bio">
+        <h3>Chào, tôi là Trượng Đức Tuấn — sinh viên, nhà nghiên cứu trẻ đam mê toán học.</h3>
+        <p>Tôi đang theo học ngành Sư Phạm Toán tại Trường Đại Học Đà Lạt — nơi tôi không chỉ học để dạy, mà còn học để hiểu sâu hơn vẻ đẹp tiềm ẩn trong những con số và công thức.</p>
+        <p>Website này là không gian tôi chia sẻ những kiến thức toán học gắn liền với thực tiễn cuộc sống, đồng thời khám phá và trân trọng di sản văn hóa phi vật thể quý báu của dân tộc Chăm Pa tại mảnh đất miền Trung Việt Nam.</p>
+        <p>Với niềm tin rằng toán học và văn hóa đều là những cột mốc định hình tư duy và bản sắc con người, tôi mong muốn mang đến những bài viết có giá trị học thuật và nhân văn thực sự.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 — <strong>Trượng Đức Tuấn</strong> · Sinh viên Sư Phạm Toán · Đại Học Đà Lạt</p>
+  <p style="margin-top:0.5rem;">Được xây dựng với niềm đam mê toán học và văn hóa dân tộc.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕ Đóng</button>
+    <div class="modal-tag" id="modalTag"></div>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const ARTICLES = [
+  {
+    id:1, cat:'toan', tag:'Toán Học & Đời Sống',
+    title:'Toán Học Trong Kiến Trúc: Từ Kim Tự Tháp Đến Nhà Chọc Trời',
+    excerpt:'Các công trình vĩ đại nhất trong lịch sử loài người đều được xây dựng trên nền tảng của toán học. Khám phá cách các kỹ sư và kiến trúc sư ứng dụng hình học, lượng giác để tạo nên những kỳ quan.',
+    date:'10/11/2024',
+    body:`<p>Toán học và kiến trúc luôn song hành cùng nhau trong suốt chiều dài lịch sử nhân loại. Từ những kim tự tháp ở Ai Cập cổ đại đến những tòa nhà chọc trời hiện đại, mọi công trình vĩ đại đều được xây dựng trên nền tảng toán học vững chắc.</p><h4>Hình Học Trong Thiết Kế</h4><p>Hình học là ngôn ngữ cơ bản của kiến trúc. Các hình dạng cơ bản như hình vuông, hình chữ nhật, hình tròn và hình tam giác không chỉ là thẩm mỹ mà còn mang ý nghĩa kết cấu. Hình tam giác, chẳng hạn, là hình dạng cứng nhất trong tự nhiên — đây là lý do tại sao các cầu và mái nhà thường sử dụng kết cấu tam giác (dàn tam giác).</p><h4>Tỉ Lệ Vàng</h4><p>Tỉ lệ vàng φ ≈ 1,618 xuất hiện khắp nơi trong kiến trúc cổ điển. Đền Parthenon ở Athens được xây dựng với tỉ lệ chiều rộng/chiều cao xấp xỉ bằng tỉ lệ vàng. Nhiều nhà nghiên cứu tin rằng tỉ lệ này tạo ra cảm giác hài hòa và đẹp đẽ tự nhiên với mắt người.</p><h4>Lượng Giác Và Kết Cấu Mái</h4><p>Khi thiết kế mái nhà, các kỹ sư sử dụng lượng giác để tính toán độ dốc, lực tác động và độ bền của vật liệu. Hàm sin và cos được áp dụng để xác định phân lực tác động lên từng thanh xà trong hệ thống dàn mái.</p><p>Toán học không chỉ là công cụ kỹ thuật trong kiến trúc — nó chính là ngôn ngữ mà qua đó con người biến những giấc mơ thành hiện thực vật chất bền vững.</p>`
+  },
+  {
+    id:2, cat:'toan', tag:'Toán Học & Đời Sống',
+    title:'Xác Suất và Thống Kê: Toán Học Đứng Sau Mọi Quyết Định',
+    excerpt:'Từ dự báo thời tiết, bảo hiểm đến thị trường chứng khoán — xác suất và thống kê âm thầm định hình mọi quyết định lớn trong cuộc sống hiện đại.',
+    date:'12/11/2024',
+    body:`<p>Xác suất và thống kê là hai nhánh toán học có ảnh hưởng sâu rộng nhất đến đời sống hàng ngày, dù nhiều người không nhận ra điều đó. Mỗi khi bạn xem dự báo thời tiết, mua bảo hiểm hay đọc báo cáo y tế, bạn đang tiếp xúc với thống kê.</p><h4>Xác Suất Trong Y Học</h4><p>Trong y học, xác suất đóng vai trò then chốt trong chẩn đoán và điều trị. Khi bác sĩ nói rằng một loại thuốc có hiệu quả 85%, đó là kết quả của các thử nghiệm thống kê nghiêm ngặt. Phương pháp Bayes được dùng để cập nhật xác suất mắc bệnh của bệnh nhân dựa trên kết quả xét nghiệm.</p><h4>Thống Kê Trong Kinh Tế</h4><p>GDP, tỷ lệ lạm phát, tỷ lệ thất nghiệp — tất cả đều là các chỉ số thống kê được tính toán từ hàng triệu dữ liệu thu thập trên toàn quốc. Các nhà kinh tế sử dụng mô hình hồi quy để dự báo xu hướng kinh tế và tư vấn cho chính phủ hoạch định chính sách.</p><h4>Big Data Và Tương Lai</h4><p>Trong thời đại số, xác suất và thống kê là nền tảng của machine learning và trí tuệ nhân tạo. Mỗi gợi ý của Netflix, mỗi kết quả tìm kiếm Google đều dựa trên các thuật toán thống kê phức tạp. Người hiểu thống kê sẽ là người nắm giữ quyền lực trong thế giới dữ liệu tương lai.</p>`
+  },
+  {
+    id:3, cat:'toan', tag:'Toán Học & Đời Sống',
+    title:'Toán Học Trong Âm Nhạc: Sóng Âm, Hợp Âm và Nhịp Điệu',
+    excerpt:'Âm nhạc là toán học dưới dạng nghệ thuật — từ tần số sóng âm đến cấu trúc hòa âm, mọi yếu tố âm nhạc đều tuân theo quy luật toán học chặt chẽ.',
+    date:'15/11/2024',
+    body:`<p>Mối quan hệ giữa toán học và âm nhạc đã được nhận biết từ thời Pythagoras cổ đại. Người Hy Lạp cổ đại phát hiện ra rằng những dây đàn có chiều dài theo tỉ lệ đơn giản sẽ tạo ra âm thanh hài hòa khi gảy cùng nhau.</p><h4>Tần Số Và Cung Bậc</h4><p>Mỗi nốt nhạc tương ứng với một tần số dao động cụ thể (đơn vị Hz). Nốt La (A4) có tần số chuẩn là 440 Hz. Khi tần số tăng gấp đôi, chúng ta nghe được cùng một nốt nhạc nhưng cao hơn một quãng tám (octave). Đây chính là mối quan hệ toán học cơ bản nhất trong âm nhạc.</p><h4>Chuỗi Fibonacci Trong Nhịp Điệu</h4><p>Nhiều nhà soạn nhạc đã sử dụng dãy Fibonacci và tỉ lệ vàng để cấu trúc bản nhạc của mình. Nhà soạn nhạc Debussy và Bartók được cho là đã áp dụng tỉ lệ vàng để xác định điểm climax trong các tác phẩm của mình — thường rơi vào khoảng 61,8% thời lượng bản nhạc.</p><h4>Biến Đổi Fourier</h4><p>Một trong những ứng dụng toán học đẹp nhất trong âm nhạc là biến đổi Fourier — công cụ phân tích bất kỳ âm thanh phức tạp nào thành tổng của các sóng hình sin đơn giản. Đây là nền tảng của toàn bộ công nghệ xử lý âm thanh hiện đại, từ MP3 đến phần mềm thu âm.</p>`
+  },
+  {
+    id:4, cat:'champa', tag:'Lịch Sử Chăm Pa',
+    title:'Vương Quốc Chăm Pa: Lịch Sử Hơn 1500 Năm Huy Hoàng',
+    excerpt:'Chăm Pa từng là một vương quốc hùng mạnh tại miền Trung Việt Nam, với nền văn minh rực rỡ, kiến trúc đền tháp độc đáo và những đóng góp to lớn cho lịch sử Đông Nam Á.',
+    date:'18/11/2024',
+    body:`<p>Vương quốc Chăm Pa (Champa) là một trong những nền văn minh lâu đời và rực rỡ nhất của Đông Nam Á. Được hình thành từ khoảng thế kỷ 2 sau Công nguyên, Chăm Pa tồn tại suốt hơn 1500 năm trên dải đất miền Trung Việt Nam ngày nay.</p><h4>Nguồn Gốc Và Lịch Sử</h4><p>Người Chăm Pa có nguồn gốc từ nhóm cư dân nói tiếng Mã Lai-Đa Đảo (Austronesian), di cư đến bán đảo Đông Dương từ hàng ngàn năm trước. Vương quốc Chăm Pa được chia thành nhiều tiểu quốc, trong đó quan trọng nhất là Indrapura (Quảng Nam), Vijaya (Bình Định), Kauthara (Khánh Hòa) và Panduranga (Ninh Thuận).</p><h4>Thương Mại Và Ngoại Giao</h4><p>Chăm Pa là trung tâm thương mại biển quan trọng bậc nhất trên Con đường Tơ lụa trên biển. Người Chăm là những thủy thủ và thương nhân tài ba, buôn bán với Ấn Độ, Trung Quốc, Java và nhiều vùng đất khác. Các mặt hàng xuất khẩu chính gồm trầm hương, ngà voi, tê giác và nhiều lâm thổ sản quý giá.</p><h4>Sự Suy Vong</h4><p>Sau thời kỳ hưng thịnh, Chăm Pa dần suy yếu do liên tiếp chiến tranh với Đại Việt ở phía Bắc và Khmer ở phía Tây. Năm 1471, kinh thành Vijaya thất thủ trước cuộc Nam Tiến của vua Lê Thánh Tông. Đến thế kỷ 17, Chăm Pa hoàn toàn sáp nhập vào lãnh thổ Đại Việt, nhưng người Chăm vẫn tiếp tục sinh sống và bảo tồn bản sắc văn hóa độc đáo của mình.</p>`
+  },
+  {
+    id:5, cat:'champa', tag:'Lịch Sử Chăm Pa',
+    title:'Thánh Địa Mỹ Sơn: Di Sản Văn Hóa Thế Giới Của Chăm Pa',
+    excerpt:'Quần thể đền tháp Mỹ Sơn — được UNESCO công nhận là Di sản Văn hóa Thế giới — là minh chứng sống động cho nền văn minh Chăm Pa rực rỡ suốt nhiều thế kỷ.',
+    date:'20/11/2024',
+    body:`<p>Thánh địa Mỹ Sơn, tọa lạc tại huyện Duy Xuyên, tỉnh Quảng Nam, là quần thể đền tháp Hindu giáo lớn nhất còn sót lại của vương quốc Chăm Pa. Năm 1999, UNESCO đã công nhận Mỹ Sơn là Di sản Văn hóa Thế giới.</p><h4>Lịch Sử Xây Dựng</h4><p>Các đền tháp tại Mỹ Sơn được xây dựng từ thế kỷ 4 đến thế kỷ 13, kéo dài suốt gần 1000 năm. Đây là khu di tích thánh địa quan trọng nhất của người Chăm, nơi thờ phụng chủ yếu thần Shiva theo truyền thống Hindu giáo. Các vị vua Chăm đã xây dựng nơi đây để tưởng nhớ các thần linh và cầu mong sự phù hộ cho vương quốc.</p><h4>Kỹ Thuật Xây Dựng Bí Ẩn</h4><p>Một trong những bí ẩn lớn nhất của Mỹ Sơn là kỹ thuật xây dựng tháp Chăm. Các tháp được xây bằng gạch nung nhưng không có mạch hồ rõ ràng. Đến nay, các nhà khoa học vẫn chưa xác định được chất kết dính mà người Chăm đã sử dụng. Một số giả thuyết cho rằng họ dùng nhựa cây dầu rái hoặc một hỗn hợp hữu cơ đặc biệt, nhưng chưa ai tìm ra câu trả lời chính xác.</p><h4>Nghệ Thuật Điêu Khắc</h4><p>Ngoài kiến trúc, Mỹ Sơn còn nổi tiếng với nghệ thuật điêu khắc tinh tế. Các phù điêu và tượng thờ được chạm khắc từ sa thạch với hình ảnh các thần linh Hindu, vũ nữ Apsara và các sinh vật thần thoại. Phong cách nghệ thuật Chăm Pa chịu ảnh hưởng từ nghệ thuật Ấn Độ nhưng đã phát triển thành phong cách độc đáo riêng.</p>`
+  },
+  {
+    id:6, cat:'daiso', tag:'Đại Số & Giải Tích',
+    title:'Phương Trình Bậc Hai: Từ Lớp Học Đến Công Trình Cầu Đường',
+    excerpt:'Phương trình bậc hai không chỉ là bài toán trên lớp — nó là công cụ thiết yếu mà các kỹ sư dùng để thiết kế cầu, đường đạn đạo và hệ thống vật lý phức tạp.',
+    date:'22/11/2024',
+    body:`<p>Phương trình bậc hai ax² + bx + c = 0 là một trong những công cụ toán học được ứng dụng rộng rãi nhất trong kỹ thuật và khoa học. Điều nhiều học sinh không biết là mỗi khi bạn nhìn lên cầu treo hay xem pháo hoa, bạn đang nhìn thấy phương trình bậc hai trong hành động.</p><h4>Parabol Trong Kỹ Thuật</h4><p>Đường cáp của cầu treo (như cầu Cần Thơ hay cầu Mỹ Thuận) có dạng parabol — đường cong được mô tả bởi hàm bậc hai y = ax². Kỹ sư sử dụng phương trình này để tính toán lực căng trong dây cáp, phân phối tải trọng và đảm bảo an toàn kết cấu.</p><h4>Đường Đạn Đạo</h4><p>Quỹ đạo của mọi vật được ném trong không gian (bỏ qua sức cản không khí) đều có dạng parabol. Từ quả bóng rổ bay vào rổ đến đầu đạn từ nòng súng, phương trình bậc hai cho phép tính chính xác tầm xa, độ cao cực đại và điểm rơi.</p><h4>Quang Học Và Âm Học</h4><p>Gương parabol (dạng bậc hai) được sử dụng trong kính thiên văn, đèn pha ô tô và ăng-ten vệ tinh. Tính chất đặc biệt của parabol là tất cả tia sáng song song đều hội tụ về một điểm (tiêu điểm), cho phép thu thập và tập trung năng lượng với hiệu suất cao.</p><p>Phương trình bậc hai là bằng chứng đẹp nhất rằng toán học trừu tượng và thực tế ứng dụng luôn kết nối sâu sắc với nhau.</p>`
+  },
+  {
+    id:7, cat:'daiso', tag:'Đại Số & Giải Tích',
+    title:'Hàm Mũ và Logarithm: Toán Học Của Sự Tăng Trưởng',
+    excerpt:'Dân số thế giới, lãi suất kép, tốc độ lan truyền virus, sự phân rã phóng xạ — tất cả đều tuân theo quy luật hàm mũ. Hiểu được nó là hiểu được nhịp đập của thế giới.',
+    date:'25/11/2024',
+    body:`<p>Hàm mũ f(x) = aˣ là một trong những hàm số quan trọng nhất trong toán học ứng dụng. Sức mạnh của nó nằm ở khả năng mô tả quá trình tăng trưởng và suy giảm theo tỉ lệ không đổi — một hiện tượng phổ biến đến kinh ngạc trong tự nhiên và xã hội.</p><h4>Lãi Suất Kép</h4><p>Nếu bạn gửi 100 triệu đồng với lãi suất 8%/năm, sau n năm bạn có 100 × (1,08)ⁿ triệu đồng. Đây là hàm mũ trong tài chính. Nhà đầu tư huyền thoại Warren Buffett đã trở thành người giàu nhất thế giới phần lớn nhờ hiểu và tận dụng sức mạnh của lãi suất kép trong dài hạn.</p><h4>Logarithm Trong Khoa Học</h4><p>Thang Richter đo cường độ động đất sử dụng logarithm cơ số 10, nghĩa là động đất magnitude 7 mạnh gấp 10 lần magnitude 6. Thang decibel (dB) đo cường độ âm thanh cũng dùng logarithm. Thang pH đo độ axit của dung dịch là logarithm của nồng độ ion H⁺.</p><h4>Số e và Tự Nhiên</h4><p>Số e ≈ 2,71828 là cơ số tự nhiên của hàm mũ, xuất hiện tự nhiên trong mô tả mọi quá trình tăng trưởng liên tục. Từ tốc độ tăng dân số, sự làm nguội của vật thể (định luật Newton), đến đường xoắn ốc của vỏ sò — số e hiện diện khắp nơi trong tự nhiên như một hằng số kỳ diệu.</p>`
+  },
+  {
+    id:8, cat:'daiso', tag:'Đại Số & Giải Tích',
+    title:'Giới Hạn và Liên Tục: Nền Tảng Của Giải Tích Hiện Đại',
+    excerpt:'Khái niệm giới hạn — từng là bí ẩn triết học thời cổ đại — nay là nền tảng của toàn bộ giải tích, vật lý lý thuyết và kỹ thuật số hiện đại.',
+    date:'28/11/2024',
+    body:`<p>Khái niệm giới hạn (limit) là một trong những đột phá trí tuệ vĩ đại nhất của nhân loại. Newton và Leibniz đã độc lập phát triển vi tích phân vào thế kỷ 17, nhưng phải đến thế kỷ 19, Cauchy và Weierstrass mới đặt nền tảng nghiêm ngặt cho khái niệm giới hạn như chúng ta biết ngày nay.</p><h4>Nghịch Lý Zeno Và Giới Hạn</h4><p>Nhà triết học Zeno người Hy Lạp cổ đại đã đặt ra nghịch lý: một mũi tên bay không bao giờ đến đích vì trước hết nó phải đi nửa đường, rồi nửa quãng đường còn lại, cứ thế vô tận. Giải tích hiện đại giải đáp nghịch lý này: tổng của vô số số hạng có thể là hữu hạn, chẳng hạn 1/2 + 1/4 + 1/8 + ... = 1.</p><h4>Ứng Dụng Trong Kỹ Thuật</h4><p>Phần mềm thiết kế kỹ thuật (CAD/CAE) sử dụng phương pháp phần tử hữu hạn (Finite Element Method), bản chất là chia nhỏ vật thể thành vô số phần tử nhỏ và tính xấp xỉ giới hạn. Phương pháp này cho phép mô phỏng ứng suất trong cầu, luồng khí quanh máy bay, hay nhiệt độ phân bố trong động cơ với độ chính xác cao.</p><h4>Đạo Hàm Như Một Giới Hạn</h4><p>Đạo hàm f'(x) của hàm số f tại điểm x là giới hạn của tỉ số [f(x+h) - f(x)]/h khi h tiến về 0. Đây là tốc độ thay đổi tức thời — khái niệm nền tảng để mô tả vận tốc, gia tốc, và vô số hiện tượng vật lý khác.</p>`
+  },
+  {
+    id:9, cat:'tichphan', tag:'Tích Phân & Ứng Dụng',
+    title:'Tích Phân Xác Định: Diện Tích, Thể Tích và Hơn Thế Nữa',
+    excerpt:'Từ tính diện tích mảnh đất có hình dạng bất kỳ đến thể tích của động cơ ô tô — tích phân xác định là công cụ cho phép đo lường những gì tưởng như không thể đo.',
+    date:'01/12/2024',
+    body:`<p>Tích phân xác định ∫ₐᵇ f(x)dx có ý nghĩa hình học là diện tích vùng giới hạn bởi đồ thị hàm số f(x), trục hoành và hai đường thẳng x=a, x=b. Nhưng tầm quan trọng của tích phân vượt xa ý nghĩa hình học đơn thuần này.</p><h4>Tính Diện Tích Bất Quy Tắc</h4><p>Với mảnh đất có hình dạng bất quy tắc, kỹ sư trắc địa có thể mô hình hóa biên giới bằng các hàm số và tính tích phân để có diện tích chính xác. Đây là cơ sở của phần mềm GIS (Geographic Information System) được dùng để lập bản đồ địa chính.</p><h4>Thể Tích Khối Quay</h4><p>Khi một đường cong quay quanh trục, nó tạo ra một khối rắn 3D. Thể tích khối đó được tính bằng tích phân. Ứng dụng thực tế: thiết kế buồng đốt động cơ, thân tàu thuyền, bình chứa khí — tất cả đều cần tính thể tích chính xác thông qua tích phân.</p><h4>Công Và Năng Lượng</h4><p>Trong vật lý, công thực hiện bởi lực F(x) biến thiên theo vị trí x được tính bằng tích phân W = ∫F(x)dx. Đây là công thức nền tảng để tính năng lượng trong mọi hệ cơ học, từ lò xo nén đến tên lửa phóng vệ tinh vào quỹ đạo.</p><h4>Trung Bình Của Hàm Số</h4><p>Giá trị trung bình của hàm số f(x) trên đoạn [a,b] là (1/(b-a))∫ₐᵇ f(x)dx. Kỹ sư điện dùng công thức này để tính giá trị hiệu dụng (RMS) của dòng điện xoay chiều — một thông số quan trọng trong thiết kế mạch điện.</p>`
+  },
+  {
+    id:10, cat:'tichphan', tag:'Tích Phân & Ứng Dụng',
+    title:'Tích Phân Trong Vật Lý: Từ Điện Từ Học Đến Cơ Học Lượng Tử',
+    excerpt:'Các phương trình Maxwell mô tả điện từ trường, phương trình Schrödinger trong cơ học lượng tử — tất cả đều là các tích phân vi phân. Toán học là ngôn ngữ của vũ trụ.',
+    date:'03/12/2024',
+    body:`<p>Vật lý hiện đại không thể tồn tại mà không có tích phân. Từ định luật vạn vật hấp dẫn của Newton đến lý thuyết tương đối của Einstein, từ điện từ học cổ điển đến cơ học lượng tử — tích phân là ngôn ngữ mà vũ trụ tự nói về mình.</p><h4>Định Luật Gauss</h4><p>Định luật Gauss trong điện từ học phát biểu rằng thông lượng điện trường qua một mặt kín tỉ lệ với điện tích bên trong. Toán học của nó là tích phân mặt: ∯E⃗·dA⃗ = Q/ε₀. Định luật này cho phép tính điện trường của mọi phân bố điện tích có đối xứng cao.</p><h4>Từ Trường Và Tích Phân Đường</h4><p>Định luật Ampère liên hệ từ trường với dòng điện tạo ra nó qua một tích phân đường: ∮B⃗·dl⃗ = μ₀I. Đây là nền tảng để thiết kế mọi loại động cơ điện, máy biến áp và máy phát điện — nói cách khác, là nền tảng của nền văn minh điện khí hiện đại.</p><h4>Cơ Học Lượng Tử</h4><p>Hàm sóng ψ(x,t) trong cơ học lượng tử mô tả trạng thái của hạt. Xác suất tìm thấy hạt trong đoạn [a,b] là ∫ₐᵇ|ψ|²dx. Tích phân này là nền tảng triết học của cơ học lượng tử — thế giới ở cấp độ hạt là thế giới của xác suất, và xác suất được tính bằng tích phân.</p>`
+  },
+  {
+    id:11, cat:'tichphan', tag:'Tích Phân & Ứng Dụng',
+    title:'Phương Trình Vi Phân: Mô Hình Hóa Thế Giới Biến Động',
+    excerpt:'Dịch bệnh lan truyền ra sao, nhiệt độ vật thể thay đổi như thế nào, dân số phát triển theo quy luật gì — phương trình vi phân là công cụ mô hình hóa thế giới động.',
+    date:'05/12/2024',
+    body:`<p>Phương trình vi phân là phương trình có chứa đạo hàm của hàm ẩn. Nếu tích phân cho phép chúng ta "đo" thì phương trình vi phân cho phép chúng ta "mô hình hóa" — biến những quan sát về tốc độ thay đổi thành phương trình toán học đầy đủ.</p><h4>Mô Hình Dịch Bệnh SIR</h4><p>Mô hình SIR (Susceptible-Infected-Recovered) dùng hệ phương trình vi phân để mô tả sự lan truyền dịch bệnh. Trong đại dịch COVID-19, các nhà dịch tễ học đã dùng các biến thể của mô hình này để dự báo đỉnh dịch và đánh giá hiệu quả của các biện pháp phòng chống. Đây là ví dụ rõ nét nhất về toán học cứu sinh mạng người.</p><h4>Định Luật Newton Làm Mát</h4><p>Tốc độ thay đổi nhiệt độ của vật thể tỉ lệ với hiệu nhiệt độ giữa vật và môi trường: dT/dt = -k(T - Tₘ). Đây là phương trình vi phân bậc nhất có nghiệm T(t) = Tₘ + (T₀-Tₘ)e^(-kt). Định luật này được dùng trong pháp y để xác định thời điểm tử vong, trong thực phẩm học để thiết kế quy trình làm lạnh.</p><h4>Dao Động Điều Hòa</h4><p>Chuyển động của con lắc, dao động của dây đàn guitar, rung động của tòa nhà trong động đất — tất cả đều được mô tả bởi phương trình vi phân bậc hai: d²x/dt² + ω²x = 0. Nghiệm x(t) = A·cos(ωt + φ) là hàm điều hòa quen thuộc, nền tảng của lý thuyết dao động và sóng.</p>`
+  },
+  {
+    id:12, cat:'lehoi', tag:'Lễ Hội Chăm Pa',
+    title:'Lễ Hội Kate: Tết Cổ Truyền Linh Thiêng Của Người Chăm',
+    excerpt:'Kate là lễ hội lớn nhất và quan trọng nhất của người Chăm Bà La Môn, diễn ra vào ngày 1 tháng 7 theo lịch Chăm — một đại lễ tưởng nhớ tổ tiên và cầu nguyện phồn thịnh.',
+    date:'08/12/2024',
+    body:`<p>Lễ hội Kate (còn gọi là Katê) là lễ hội truyền thống lớn nhất của người Chăm Bà La Môn (Ahier), được tổ chức vào ngày 1 tháng 7 theo lịch Chăm, thường rơi vào khoảng tháng 9 hoặc tháng 10 dương lịch. Năm 2022, Kate được UNESCO công nhận là Di sản Văn hóa Phi vật thể của Nhân loại.</p><h4>Ý Nghĩa Tâm Linh</h4><p>Kate là dịp để người Chăm tưởng nhớ các vị thần và tổ tiên. Lễ hội thờ phụng các vị vua thần hóa của Chăm Pa như Po Klong Garai, Po Rome — những vị vua được thần thánh hóa trong tín ngưỡng Chăm. Đây cũng là thời điểm con cháu xa gần trở về đoàn tụ, tôn vinh nguồn cội.</p><h4>Diễn Trình Lễ Hội</h4><p>Kate diễn ra qua ba cấp độ: lễ tại đền tháp (nơi thờ các vị vua thần), lễ tại làng (tại Nhà làng), và lễ tại gia đình. Tại đền tháp, các chức sắc tôn giáo Chăm gồm Pô Dhia (thầy cả), Kadhar (thầy kéo đàn Rabab), Muk Pajuei (bà bóng) và Char (thầy vỗ trống) thực hiện các nghi lễ mở cửa tháp, tắm tượng thần, mặc áo cho tượng và đại lễ cúng tế.</p><h4>Nghệ Thuật Trong Kate</h4><p>Kate không chỉ là nghi lễ tôn giáo mà còn là đại hội văn hóa nghệ thuật. Các điệu múa Chăm truyền thống, âm nhạc trống Paranưng, kèn Saranai, đàn Rabab được biểu diễn suốt lễ hội. Trang phục Chăm rực rỡ màu sắc với thổ cẩm được dệt thủ công là hình ảnh đặc trưng không thể thiếu.</p>`
+  },
+  {
+    id:13, cat:'lehoi', tag:'Lễ Hội Chăm Pa',
+    title:'Lễ Hội Ramưwan: Tháng Ăn Chay Linh Thiêng Của Người Chăm Islam',
+    excerpt:'Ramưwan — phiên bản Chăm của tháng Ramadan — là dịp để người Chăm Bà Ni (Islam) thực hành tín ngưỡng, thanh tẩy tâm hồn và củng cố tinh thần cộng đồng.',
+    date:'10/12/2024',
+    body:`<p>Lễ hội Ramưwan (hay còn gọi là Ramuwan) là tháng lễ thiêng liêng của người Chăm Bà Ni (người Chăm theo Islam bản địa hóa), diễn ra vào tháng 9 theo lịch Hồi giáo. Đây là dịp người Chăm Bà Ni ăn chay, cầu nguyện và thực hành các nghi lễ tôn giáo quan trọng.</p><h4>Sự Khác Biệt Độc Đáo</h4><p>Điều thú vị là Islam của người Chăm Bà Ni có nhiều yếu tố bản địa hóa độc đáo, khác với Islam chính thống. Người Chăm Bà Ni không hoàn toàn nhịn ăn trong suốt ban ngày như người Hồi giáo truyền thống, mà ăn chay theo cách riêng. Họ kết hợp các nghi thức Hồi giáo với tín ngưỡng bản địa, tạo nên một hình thức tôn giáo độc đáo chỉ có ở người Chăm Việt Nam.</p><h4>Lễ Cúng Tại Thánh Đường</h4><p>Trong suốt tháng Ramưwan, mỗi đêm các chức sắc tôn giáo Chăm Bà Ni đến thánh đường (Sang Mưgik) để tụng kinh cầu nguyện. Cuối tháng là lễ kết thúc (lễ Eid al-Fitr theo cách gọi của Chăm) với các nghi thức đặc biệt và bữa tiệc đoàn tụ gia đình.</p><h4>Giá Trị Văn Hóa</h4><p>Ramưwan không chỉ là lễ hội tôn giáo mà còn là dịp để cộng đồng Chăm Bà Ni củng cố mối liên kết xã hội, giải quyết mâu thuẫn, tha thứ lẫn nhau và cùng hướng về những giá trị tốt đẹp. Đây là ví dụ điển hình về cách văn hóa tôn giáo gắn kết cộng đồng trong xã hội Chăm Pa truyền thống.</p>`
+  },
+  {
+    id:14, cat:'champa', tag:'Lịch Sử Chăm Pa',
+    title:'Chữ Viết Chăm Cổ: Hệ Thống Ký Tự Đặc Sắc Của Một Nền Văn Minh',
+    excerpt:'Chữ Chăm cổ là một trong những hệ thống chữ viết lâu đời nhất ở Đông Nam Á, bắt nguồn từ chữ Brahmi của Ấn Độ và mang nhiều nét đặc trưng riêng biệt.',
+    date:'12/12/2024',
+    body:`<p>Chữ Chăm cổ (hay chữ Akhar Thrah) là hệ thống chữ viết được người Chăm sử dụng trong nhiều thế kỷ, là một trong những hệ thống chữ viết đặc sắc nhất của vùng Đông Nam Á. Hiện nay, chữ Chăm vẫn được cộng đồng người Chăm ở Ninh Thuận và Bình Thuận gìn giữ và sử dụng.</p><h4>Nguồn Gốc Và Lịch Sử</h4><p>Chữ Chăm có nguồn gốc từ chữ Brahmi của Ấn Độ, thông qua chữ Pallava. Bia ký Chăm cổ nhất được phát hiện là bia Võ Cạnh (tỉnh Khánh Hòa), có niên đại khoảng thế kỷ 3 sau Công nguyên. Đây là một trong những văn bản khắc trên đá lâu đời nhất ở Đông Nam Á.</p><h4>Đặc Điểm Hệ Thống</h4><p>Chữ Chăm thuộc loại hệ thống abugida — mỗi ký tự cơ bản là một phụ âm kèm theo nguyên âm mặc định "a". Các nguyên âm khác được biểu thị bằng các dấu phụ thêm vào ký tự cơ bản. Hệ thống này có 18 phụ âm cơ bản và nhiều ký tự phụ, đủ để ghi chép mọi âm tiết trong tiếng Chăm.</p><h4>Bảo Tồn Và Phục Hồi</h4><p>Trong thời hiện đại, chữ Chăm đứng trước nguy cơ mai một. Nhiều tổ chức văn hóa và nhà nghiên cứu đang nỗ lực số hóa và bảo tồn các văn bản Chăm cổ. Bộ Giáo dục Việt Nam đã đưa chữ Chăm vào chương trình giảng dạy tại các trường học ở vùng đồng bào Chăm để bảo tồn di sản ngôn ngữ quý báu này.</p>`
+  },
+  {
+    id:15, cat:'toan', tag:'Toán Học & Đời Sống',
+    title:'Lý Thuyết Đồ Thị: Toán Học Của Mạng Lưới và Kết Nối',
+    excerpt:'Mạng xã hội, hệ thống giao thông, internet, chuỗi thực phẩm — tất cả đều là đồ thị. Lý thuyết đồ thị là môn khoa học nghiên cứu cách vạn vật kết nối với nhau.',
+    date:'14/12/2024',
+    body:`<p>Lý thuyết đồ thị (Graph Theory) được sinh ra từ bài toán nổi tiếng "Bảy cây cầu Königsberg" năm 1736 của nhà toán học thiên tài Leonhard Euler. Kể từ đó, nó phát triển thành một trong những ngành toán học ứng dụng quan trọng nhất của thế giới hiện đại.</p><h4>Thuật Toán Google PageRank</h4><p>Cách Google sắp xếp kết quả tìm kiếm dựa trên thuật toán PageRank — một ứng dụng trực tiếp của lý thuyết đồ thị. Internet được coi như một đồ thị khổng lồ với các trang web là đỉnh và các liên kết là cạnh. PageRank đo "tầm quan trọng" của mỗi trang dựa trên số lượng và chất lượng liên kết trỏ đến nó.</p><h4>Tối Ưu Hóa Giao Thông</h4><p>Bài toán tìm đường đi ngắn nhất (Shortest Path Problem) được giải bằng thuật toán Dijkstra — ứng dụng đồ thị. Google Maps, Waze và mọi ứng dụng dẫn đường đều dựa trên thuật toán này để tính toán lộ trình tối ưu trong mạng lưới đường giao thông.</p><h4>Mạng Xã Hội</h4><p>Facebook, Instagram, Twitter đều là đồ thị với người dùng là đỉnh và kết bạn/theo dõi là cạnh. Phân tích đồ thị mạng xã hội cho phép phát hiện "người ảnh hưởng" (influencer), các cộng đồng nhỏ bên trong mạng lớn, và cách thông tin hoặc dịch bệnh lan truyền qua mạng lưới xã hội.</p>`
+  },
+  {
+    id:16, cat:'lehoi', tag:'Lễ Hội Chăm Pa',
+    title:'Múa Chăm: Nghệ Thuật Vũ Đạo Cổ Đại Mang Hơi Thở Thần Linh',
+    excerpt:'Múa Chăm là loại hình nghệ thuật đặc sắc mang đậm dấu ấn Hindu giáo, với những điệu múa uyển chuyển mô phỏng hình tượng thần linh và vũ nữ Apsara huyền thoại.',
+    date:'16/12/2024',
+    body:`<p>Múa Chăm là di sản nghệ thuật phi vật thể quý báu của người Chăm, có lịch sử hàng nghìn năm gắn liền với văn hóa Hindu giáo của vương quốc Chăm Pa. Các điệu múa Chăm được thể hiện trong các dịp lễ hội tôn giáo, đặc biệt là lễ Kate và lễ tế thần tại đền tháp.</p><h4>Nguồn Gốc Từ Apsara</h4><p>Hình tượng vũ nữ Apsara trong thần thoại Hindu được chạm khắc đầy trên các đền tháp Chăm, đặc biệt rõ nét tại Mỹ Sơn. Những vũ nữ thiên thần này được cho là đã truyền nghệ thuật múa xuống trần gian. Các điệu múa Chăm truyền thống mô phỏng những động tác này với những tư thế tay (mudra) và chân đặc trưng.</p><h4>Trang Phục Và Nhạc Cụ</h4><p>Vũ công Chăm mặc trang phục truyền thống rực rỡ với thổ cẩm, vàng, và đồ trang sức. Âm nhạc đệm gồm trống Paranưng (trống đôi), kèn Saranai (kèn bầu), Ginăng (trống nhỏ) — tạo nên âm điệu đặc sắc không lẫn vào đâu được. Nhịp điệu âm nhạc Chăm có cấu trúc phức tạp, khác biệt hoàn toàn với âm nhạc Kinh Việt.</p><h4>Nguy Cơ Và Bảo Tồn</h4><p>Múa Chăm đang đối mặt với nguy cơ mai một khi ít người trẻ muốn học. Các nghệ nhân cao tuổi là những "kho báu sống" cuối cùng. Nhiều tổ chức văn hóa và nghệ sĩ trẻ người Chăm đang nỗ lực ghi hình, số hóa và mở lớp dạy múa Chăm để truyền lại cho thế hệ sau.</p>`
+  },
+  {
+    id:17, cat:'daiso', tag:'Đại Số & Giải Tích',
+    title:'Ma Trận Và Biến Đổi Tuyến Tính: Toán Học Của Đồ Họa Máy Tính',
+    excerpt:'Mỗi khung hình trong bộ phim hoạt hình hay game 3D đều được tính toán bằng phép nhân ma trận. Đại số tuyến tính là ngôn ngữ bí mật của đồ họa máy tính hiện đại.',
+    date:'18/12/2024',
+    body:`<p>Ma trận và đại số tuyến tính là nền tảng toán học của toàn bộ ngành đồ họa máy tính, từ game video đến phim hoạt hình 3D và thực tế ảo. Mỗi khi bạn nhìn thấy một nhân vật 3D xoay, di chuyển hay thay đổi kích thước trên màn hình, đó là kết quả của hàng triệu phép nhân ma trận được thực hiện trong một giây.</p><h4>Biến Đổi Hình Học</h4><p>Trong đồ họa 3D, mọi biến đổi hình học — dịch chuyển (translation), xoay (rotation), phóng to thu nhỏ (scaling) — đều được biểu diễn bằng ma trận. Nhân ma trận biến đổi với vector tọa độ của điểm cho ra tọa độ mới sau biến đổi. Điều quan trọng là nhiều biến đổi có thể được kết hợp thành một ma trận duy nhất, giúp tính toán nhanh hơn nhiều.</p><h4>AI Và Deep Learning</h4><p>Mạng nơ-ron nhân tạo (neural network) về bản chất là một loạt phép nhân ma trận và áp dụng hàm phi tuyến. Khi ChatGPT trả lời câu hỏi hay Stable Diffusion tạo hình ảnh, đằng sau đó là hàng tỷ phép tính ma trận thực hiện trên GPU. GPU (Card đồ họa) được thiết kế đặc biệt để thực hiện hàng nghìn phép nhân ma trận song song.</p><h4>Nén Hình Ảnh SVD</h4><p>Phân tích giá trị kỳ dị (Singular Value Decomposition - SVD) của ma trận là kỹ thuật nén hình ảnh hiệu quả. Bằng cách chỉ giữ lại các giá trị kỳ dị lớn nhất, ta có thể xấp xỉ ma trận hình ảnh với dung lượng lưu trữ thấp hơn nhiều mà vẫn giữ được chất lượng hình ảnh chấp nhận được.</p>`
+  },
+  {
+    id:18, cat:'champa', tag:'Lịch Sử Chăm Pa',
+    title:'Gốm Chăm Pa: Nghệ Thuật Nặn Đất Lưu Giữ Linh Hồn Dân Tộc',
+    excerpt:'Làng gốm Bàu Trúc — được mệnh danh là làng gốm cổ nhất Đông Nam Á — vẫn còn bảo tồn kỹ thuật làm gốm thủ công truyền thống 2000 năm của người Chăm.',
+    date:'20/12/2024',
+    body:`<p>Làng gốm Bàu Trúc (thị trấn Phước Dân, huyện Ninh Phước, tỉnh Ninh Thuận) được các nhà nghiên cứu xem là một trong những làng gốm cổ nhất ở Đông Nam Á. Gốm Bàu Trúc mang giá trị văn hóa đặc biệt vì được làm hoàn toàn thủ công bởi phụ nữ Chăm, không dùng bàn xoay.</p><h4>Kỹ Thuật Độc Đáo</h4><p>Điều kỳ lạ của gốm Bàu Trúc là người thợ không đứng yên mà di chuyển xung quanh khối đất — hoàn toàn ngược với kỹ thuật dùng bàn xoay của các làng gốm khác. Đất sét được trộn với cát sông theo tỉ lệ đặc biệt, nặn tay hoàn toàn thủ công, rồi nung ngoài trời bằng củi và rơm trong khoảng 5-6 tiếng. Phương pháp nung lộ thiên tạo ra màu sắc đặc trưng vàng nâu, đỏ gạch và đen bóng.</p><h4>Hoa Văn Và Biểu Tượng</h4><p>Gốm Chăm thường được trang trí bằng các hoa văn hình học, hình sóng nước, hình vảy cá và các biểu tượng tôn giáo Hindu như ngọn lửa thiêng. Mỗi hoa văn đều có ý nghĩa tâm linh và văn hóa riêng, phản ánh vũ trụ quan và tín ngưỡng của người Chăm.</p><h4>Di Sản Được Công Nhận</h4><p>Năm 2022, nghề làm gốm của người Chăm ở Bình Thuận đã được UNESCO công nhận là Di sản Văn hóa Phi vật thể cần bảo vệ khẩn cấp. Đây là sự thừa nhận quốc tế về giá trị độc đáo của nghề gốm truyền thống Chăm — một di sản sống cần được bảo vệ trước làn sóng công nghiệp hóa.</p>`
+  },
+  {
+    id:19, cat:'tichphan', tag:'Tích Phân & Ứng Dụng',
+    title:'Chuỗi Taylor: Xấp Xỉ Hàm Số và Ứng Dụng Trong Máy Tính',
+    excerpt:'Máy tính không biết tính sin hay cos "thực sự" — chúng dùng chuỗi Taylor để xấp xỉ. Khám phá cách toán học giải quyết vấn đề tính toán trong thế giới số.',
+    date:'22/12/2024',
+    body:`<p>Chuỗi Taylor là một trong những công cụ mạnh mẽ nhất của giải tích, cho phép biểu diễn một hàm số trơn bất kỳ dưới dạng tổng vô hạn các lũy thừa. Ứng dụng của nó trải dài từ vật lý lý thuyết đến thiết kế vi xử lý máy tính.</p><h4>Máy Tính Và Hàm Lượng Giác</h4><p>Khi bạn bấm sin(30°) trên máy tính, vi xử lý không tra bảng mà tính toán bằng chuỗi Taylor: sin(x) = x - x³/3! + x⁵/5! - x⁷/7! + ... Chỉ cần lấy vài số hạng đầu tiên, ta đã có kết quả với sai số nhỏ hơn 0.0001%, đủ cho mọi ứng dụng thực tế. Chuỗi Taylor biến các hàm siêu việt phức tạp thành bài toán cộng trừ nhân chia đơn giản.</p><h4>Vật Lý Và Xấp Xỉ</h4><p>Trong vật lý, chuỗi Taylor được dùng để xấp xỉ các biểu thức phức tạp trong giới hạn nhất định. Chẳng hạn, trong thuyết tương đối đặc biệt, năng lượng của hạt chuyển động là E = mc²/√(1-v²/c²). Khi v << c (vận tốc rất nhỏ so với ánh sáng), khai triển Taylor cho ta: E ≈ mc² + mv²/2 — chính xác là năng lượng nghỉ cộng động năng cổ điển!</p><h4>Xử Lý Tín Hiệu</h4><p>Trong kỹ thuật điện, chuỗi Fourier (một dạng đặc biệt của chuỗi Taylor) được dùng để phân tích tín hiệu tuần hoàn thành tổng các sóng hình sin. Đây là nền tảng của mọi kỹ thuật xử lý tín hiệu số, từ nén âm thanh MP3 đến truyền thông di động 5G.</p>`
+  },
+  {
+    id:20, cat:'lehoi', tag:'Lễ Hội Chăm Pa',
+    title:'Dệt Thổ Cẩm Chăm: Nghệ Thuật Mã Hóa Văn Hóa Trên Từng Sợi Vải',
+    excerpt:'Thổ cẩm Chăm không chỉ là vải — mỗi hoa văn là một câu chuyện, mỗi màu sắc là một biểu tượng tôn giáo. Nghề dệt là cách người Chăm lưu giữ văn hóa qua thế kỷ.',
+    date:'24/12/2024',
+    body:`<p>Dệt thổ cẩm là một trong những nghề thủ công truyền thống tiêu biểu nhất của người Chăm, đặc biệt nổi tiếng tại làng Mỹ Nghiệp (Ninh Phước, Ninh Thuận). Những tấm vải thổ cẩm Chăm không chỉ là sản phẩm thủ công — chúng là những trang sách văn hóa được dệt bằng sợi tơ và cotton.</p><h4>Ngôn Ngữ Hoa Văn</h4><p>Mỗi họa tiết trên thổ cẩm Chăm đều mang ý nghĩa biểu tượng sâu sắc. Hoa văn hình rồng (Naga — rắn thần Hindu) tượng trưng cho nguồn nước và phồn thịnh. Hoa văn hình ngọn lửa (Agni) liên quan đến thần lửa và sự tinh khiết. Hoa văn hình tháp là biểu tượng của đền thờ và thế giới thần linh. Màu sắc cũng có ý nghĩa: đỏ tượng trưng cho sức mạnh, vàng cho quyền quý, trắng cho sự thuần khiết.</p><h4>Kỹ Thuật Dệt Truyền Thống</h4><p>Phụ nữ Chăm học dệt từ nhỏ — đây là kỹ năng bắt buộc trước khi lấy chồng. Khung dệt truyền thống Chăm là loại khung đứng đặc biệt, khác với các dân tộc khác. Người dệt phải ghi nhớ hàng trăm họa tiết và kiểm soát từng sợi dọc, sợi ngang với độ chính xác cao. Đây là nghề đòi hỏi sự kiên nhẫn, khéo léo và trí nhớ đặc biệt.</p><h4>Thách Thức Hiện Đại</h4><p>Trong bối cảnh vải công nghiệp giá rẻ tràn ngập thị trường, thổ cẩm thủ công Chăm đang phải đối mặt với cạnh tranh khốc liệt. Nhiều làng dệt đang kết hợp với du lịch và xuất khẩu để duy trì nghề. Một số nghệ nhân trẻ đang cách tân thiết kế thổ cẩm để phù hợp với thị hiếu hiện đại trong khi vẫn bảo tồn kỹ thuật truyền thống.</p>`
+  }
+];
+
+let currentFilter = 'all';
+
+function renderArticles(filter) {
+  const grid = document.getElementById('articlesGrid');
+  const filtered = filter === 'all' ? ARTICLES : ARTICLES.filter(a => a.cat === filter);
+  grid.innerHTML = filtered.map(a => `
+    <div class="article-card" onclick="openModal(${a.id})">
+      <div class="article-tag">${a.tag}</div>
+      <h3>${a.title}</h3>
+      <p>${a.excerpt}</p>
+      <div class="article-meta">${a.date} &nbsp;·&nbsp; Trượng Đức Tuấn</div>
+      <span class="read-more">Đọc Tiếp →</span>
+    </div>
+  `).join('');
+}
+
+function filterArticles(cat, btn) {
+  currentFilter = cat;
+  renderArticles(cat);
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('articles').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openModal(id) {
+  const a = ARTICLES.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('modalTag').textContent = a.tag;
+  document.getElementById('modalTitle').textContent = a.title;
+  document.getElementById('modalMeta').textContent = `${a.date}  ·  Tác giả: Trượng Đức Tuấn  ·  Sinh viên Sư Phạm Toán — ĐH Đà Lạt`;
+  document.getElementById('modalBody').innerHTML = a.body;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Init
+renderArticles('all');
+</script>
+</body>
+</html>
